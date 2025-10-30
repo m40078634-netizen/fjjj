@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FIT ZONE - Actividad Física</title>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(255,69,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #ff4500, #ff6b35, #ff8c42);
+            opacity: 0.1;
+            animation: pulse-bg 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-bg {
+            0% { opacity: 0.1; }
+            100% { opacity: 0.2; }
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #ff4500, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: glow-text 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow-text {
+            from { filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.8)); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff4500, #ff6b35);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 69, 0, 0.4);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff4500, #ff6b35);
+            border-radius: 2px;
+        }
+
+        /* Workout Grid */
+        .workout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .workout-card {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .workout-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(255, 69, 0, 0.3);
+            border-color: #ff4500;
+        }
+
+        .workout-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .workout-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,69,0,0.1), rgba(0,0,0,0.3));
+        }
+
+        .workout-content {
+            padding: 25px;
+        }
+
+        .workout-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ff6b35;
+            text-transform: uppercase;
+        }
+
+        .workout-description {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .workout-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ff4500;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            padding: 80px 0;
+            margin: 60px 0;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 69, 0, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            background: rgba(255, 69, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 4rem;
+            color: #ff4500;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .benefit-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ff6b35;
+            text-transform: uppercase;
+        }
+
+        .benefit-text {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Motivation Section */
+        .motivation {
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(255,69,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .motivation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,69,0,0.1), rgba(0,0,0,0.7));
+        }
+
+        .motivation-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .motivation h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .motivation-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: #ff6b35;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 15px;
+            color: #ff4500;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ff6b35;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .workout-grid {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            animation: slideInUp 0.8s ease forwards;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff4500;
+            border-radius: 50%;
+            animation: float-particle 10s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="particles"></div>
+<!-- Hero Section -->
+<section class="hero">
+<div class="hero-content">
+<h1>FIT ZONE</h1>
+<p>Transforma tu cuerpo, fortalece tu mente, conquista tus límites</p>
+<a class="cta-button" href="#workouts">Comenzar Entrenamiento</a>
+</div>
+</section>
+<!-- Workouts Section -->
+<section class="section" id="workouts">
+<h2 class="section-title">Entrenamientos de Elite</h2>
+<div class="workout-grid">
+<div class="workout-card">
+<div class="workout-image" style="background-image: url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80')"></div>
+<div class="workout-content">
+<h3 class="workout-title">Fuerza &amp; Potencia</h3>
+<p class="workout-description">Desarrolla músculos más fuertes y poderosos con entrenamientos de alta intensidad diseñados para maximizar tu potencial físico.</p>
+<div class="workout-stats">
+<div class="stat">
+<div class="stat-number">45</div>
+<div class="stat-label">Min</div>
+</div>
+<div class="stat">
+<div class="stat-number">500+</div>
+<div class="stat-label">Calorías</div>
+</div>
+<div class="stat">
+<div class="stat-number">💪</div>
+<div class="stat-label">Intensidad</div>
+</div>
+</div>
+</div>
+</div>
+<div class="workout-card">
+<div class="workout-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80')"></div>
+<div class="workout-content">
+<h3 class="workout-title">Cardio Extremo</h3>
+<p class="workout-description">Quema grasa y mejora tu resistencia cardiovascular con entrenamientos dinámicos que elevarán tu frecuencia cardíaca al máximo.</p>
+<div class="workout-stats">
+<div class="stat">
+<div class="stat-number">30</div>
+<div class="stat-label">Min</div>
+</div>
+<div class="stat">
+<div class="stat-number">400+</div>
+<div class="stat-label">Calorías</div>
+</div>
+<div class="stat">
+<div class="stat-number">🔥</div>
+<div class="stat-label">Quema</div>
+</div>
+</div>
+</div>
+</div>
+<div class="workout-card">
+<div class="workout-image" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80')"></div>
+<div class="workout-content">
+<h3 class="workout-title">Funcional</h3>
+<p class="workout-description">Mejora tu movilidad, flexibilidad y coordinación con movimientos que imitan las actividades de la vida diaria.</p>
+<div class="workout-stats">
+<div class="stat">
+<div class="stat-number">40</div>
+<div class="stat-label">Min</div>
+</div>
+<div class="stat">
+<div class="stat-number">350+</div>
+<div class="stat-label">Calorías</div>
+</div>
+<div class="stat">
+<div class="stat-number">⚡</div>
+<div class="stat-label">Agilidad</div>
+</div>
+</div>
+</div>
+</div>
+<div class="workout-card">
+<div class="workout-image" style="background-image: url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80')"></div>
+<div class="workout-content">
+<h3 class="workout-title">CrossFit</h3>
+<p class="workout-description">Entrenamientos variados y desafiantes que combinan levantamiento de pesas, cardio y movimientos gimnásticos.</p>
+<div class="workout-stats">
+<div class="stat">
+<div class="stat-number">60</div>
+<div class="stat-label">Min</div>
+</div>
+<div class="stat">
+<div class="stat-number">600+</div>
+<div class="stat-label">Calorías</div>
+</div>
+<div class="stat">
+<div class="stat-number">💥</div>
+<div class="stat-label">Explosivo</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Benefits Section -->
+<section class="benefits">
+<div class="section">
+<h2 class="section-title">Beneficios del Entrenamiento</h2>
+<div class="benefits-grid">
+<div class="benefit-item">
+<span class="benefit-icon">💪</span>
+<h3 class="benefit-title">Fuerza</h3>
+<p class="benefit-text">Aumenta tu masa muscular y desarrolla una fuerza funcional que te acompañará en todas tus actividades diarias.</p>
+</div>
+<div class="benefit-item">
+<span class="benefit-icon">❤️</span>
+<h3 class="benefit-title">Salud Cardiovascular</h3>
+<p class="benefit-text">Fortalece tu corazón, mejora la circulación sanguínea y reduce el riesgo de enfermedades cardiovasculares.</p>
+</div>
+<div class="benefit-item">
+<span class="benefit-icon">🧠</span>
+<h3 class="benefit-title">Salud Mental</h3>
+<p class="benefit-text">Reduce el estrés, mejora tu estado de ánimo y aumenta la confianza en ti mismo a través del ejercicio regular.</p>
+</div>
+<div class="benefit-item">
+<span class="benefit-icon">⚡</span>
+<h3 class="benefit-title">Energía</h3>
+<p class="benefit-text">Incrementa tus niveles de energía y resistencia para enfrentar cada día con mayor vitalidad.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Motivation Section -->
+<section class="motivation">
+<div class="motivation-content">
+<h2>No hay límites</h2>
+<p class="motivation-quote">"El dolor que sientes hoy será la fuerza que sentirás mañana"</p>
+<a class="cta-button" href="#workouts">Supera tus límites</a>
+</div>
+</section>
+<!-- Footer -->
+<footer>
+<div class="footer-content">
+<div class="social-links">
+<a href="#" title="Instagram">📷</a>
+<a href="#" title="YouTube">📹</a>
+<a href="#" title="Facebook">📘</a>
+<a href="#" title="Twitter">🐦</a>
+</div>
+<p>© 2025 FIT ZONE. Forjando campeones cada día.</p>
+<p>Contacto: corderoleonjohnmario@gmail.com | Tel: +57 3249048485</p></div>
+</footer>
+<script>
+        // Crear partículas flotantes
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = (Math.random() * 8 + 5) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.querySelector('.particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 15000);
+        }
+
+        // Crear partículas periódicamente
+        setInterval(createParticle, 3000);
+
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animación
+        document.querySelectorAll('.workout-card, .benefit-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll para enlaces
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efecto parallax en el hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
